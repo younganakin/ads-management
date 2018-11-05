@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jo^w72-vcqpxc%$4pviso1le-0mnj3o((-1*n&k2z+5s5a53z8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
@@ -176,6 +176,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-SESSION_COOKIE_AGE = 2 * 60
+# SESSION_COOKIE_AGE = 2 * 60
 
-SESSION_IDLE_TIMEOUT = 2 * 60
+# SESSION_IDLE_TIMEOUT = 2 * 60
