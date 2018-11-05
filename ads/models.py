@@ -145,3 +145,57 @@ class AdImage(models.Model):
         upload_to='ad-images',
         verbose_name=_('Image'),
         max_length=255)
+
+
+@python_2_unicode_compatible
+class Impression(models.Model):
+    """
+    The AdImpression Model will record every time the ad is loaded on a page
+    """
+    ad = models.ForeignKey(
+        Ad, on_delete=models.CASCADE, verbose_name=_('Ad'),
+        related_name='impressions')
+    impression_date = models.DateTimeField(
+        verbose_name=_('When'), auto_now_add=True)
+    source_ip = models.GenericIPAddressField(
+        verbose_name=_('Source IP Address'), null=True, blank=True)
+    session_id = models.CharField(
+        verbose_name=_('Source Session ID'),
+        max_length=40, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _('Ad Impression')
+        verbose_name_plural = _('Ad Impressions')
+        index_together = (
+            ('ad', 'session_id', )
+        )
+
+    def __str__(self):
+        return force_text(self.ad)
+
+
+@python_2_unicode_compatible
+class Click(models.Model):
+    """
+    The AdClick model will record every click that a add gets
+    """
+    ad = models.ForeignKey(
+        Ad, on_delete=models.CASCADE, verbose_name=_('Ad'),
+        related_name='clicks')
+    click_date = models.DateTimeField(
+        verbose_name=_('When'), auto_now_add=True)
+    source_ip = models.GenericIPAddressField(
+        verbose_name=_('Source IP Address'), null=True, blank=True)
+    session_id = models.CharField(
+        verbose_name=_('Source Session ID'),
+        max_length=40, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _('Ad Click')
+        verbose_name_plural = _('Ad Clicks')
+        index_together = (
+            ('ad', 'session_id', )
+        )
+
+    def __str__(self):
+        return force_text(self.ad)
