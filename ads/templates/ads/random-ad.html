@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-
+<link rel="stylesheet" href="{% static 'ads/css/random.css' %}" />
 {% endblock %}
 
 {% block scripts %}
@@ -12,7 +12,7 @@
 {% block title %}ABC Company Ltd{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
+<div id="random" class="row justify-content-center">
     {% for image in ad.images.all %}
     <a href="{% url 'ads:ad-click' ad.id %}" target="_blank" rel="nofollow" title="{{ ad.title }}">
         <img src="{{ image.image.url }}" class="img-responsive" />
