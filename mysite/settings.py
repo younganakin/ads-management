@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jo^w72-vcqpxc%$4pviso1le-0mnj3o((-1*n&k2z+5s5a53z8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
@@ -35,7 +35,12 @@ ALLOWED_HOSTS = ['localhost',
 
 INSTALLED_APPS = [
     'ads.apps.AdsConfig',
+    'splashads.apps.SplashadsConfig',
     'corsheaders',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_hotp',
+    'django_otp.plugins.otp_static',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +87,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'advertisements',
+        'NAME': 'radius',
         'USER': 'fatjoe',
         'PASSWORD': 'Darthvader_89',
         'HOST': 'localhost',
@@ -144,19 +149,15 @@ ADS_ZONES = {
             'md': '800x90',
             'lg': '800x90'
         },
-        'google_adsense_slot': 'xxxxxxxxx',  # OPTIONAL - DEFAULT TO None
-        'google_adsense_format': 'auto',  # OPTIONAL - DEFAULT TO None
     },
     'content': {
         'name': ('Content'),
         'ad_size': {
-            'xs': '720x150',
+            'xs': '300x150',
             'sm': '800x90',
             'md': '800x90',
             'lg': '800x90'
         },
-        'google_adsense_slot': 'xxxxxxxxx',  # OPTIONAL - DEFAULT TO None
-        'google_adsense_format': 'auto',  # OPTIONAL - DEFAULT TO None
     },
     'sidebar': {
         'name': ('Sidebar'),
@@ -166,15 +167,22 @@ ADS_ZONES = {
             'md': '800x90',
             'lg': '800x90'
         },
-        'google_adsense_slot': 'xxxxxxxxx',  # OPTIONAL - DEFAULT TO None
-        'google_adsense_format': 'auto',  # OPTIONAL - DEFAULT TO None
     },
 }
+
+ADS_DEFAULT_AD_SIZE = '720x150'
+
+ADS_DEVICES = (
+    ('xs', ('Smartphones')),
+    ('sm', ('Tablets')),
+    ('md', ('Small Desktops')),
+    ('lg', ('Large Desktops'))
+)
 
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # SESSION_COOKIE_AGE = 2 * 60
 

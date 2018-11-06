@@ -26,6 +26,7 @@ admin.sites.AdminSite.site_title = 'Ads Management System'
 
 urlpatterns = [
     path('ads/', include('ads.urls')),
+    path('splashads/', include('splashads.urls')),
     path('admin/', admin.site.urls),
 ]
 

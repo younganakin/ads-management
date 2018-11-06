@@ -5,7 +5,6 @@ from django.contrib import admin
 
 from ads.forms import *
 from ads.models import *
-from ads.utils import get_zones_choices
 
 # Register your models here.
 
@@ -57,28 +56,25 @@ class VenueAdmin(admin.ModelAdmin):
         }
 
 
-class AdAdminForm(forms.ModelForm):
-    class Meta:
-        exclude = ('venues',)
-        widgets = {
-            'zone': forms.Select(choices=get_zones_choices())
-        }
-
-
 class AdImageInline(admin.TabularInline):
     model = AdImage
     form = AdImageInlineForm
-    fields = ('image',)
+    fields = ('device', 'zone', 'image',)
 
 
 class VenueInline(admin.TabularInline):
     model = Ad.venues.through
 
 
+class AdAdminForm(forms.ModelForm):
+    class Meta:
+        exclude = ('venues',)
+
+
 class AdAdmin(admin.ModelAdmin):
     form = AdAdminForm
     list_display = [
-        'title', 'url', 'zone', 'advertiser', 'weight',
+        'title', 'url', 'advertiser', 'weight',
         'publication_date', 'publication_date_end']
     list_filter = [
         'publication_date', 'publication_date_end',
@@ -100,7 +96,7 @@ class AdAdmin(admin.ModelAdmin):
 class ClickAdmin(admin.ModelAdmin):
     search_fields = ['ad__title', 'source_ip', 'session_id']
     list_display = ['ad', 'click_date', 'source_ip', 'session_id']
-    list_filter = ['ad', 'click_date', 'ad__zone']
+    list_filter = ['ad', 'click_date']
     date_hierarchy = 'click_date'
     actions = ['download_clicks']
 
@@ -117,8 +113,7 @@ class ClickAdmin(admin.ModelAdmin):
                          'Source IP',
                          'Timestamp',
                          'Advertiser ID',
-                         'Advertiser name',
-                         'Zone'))
+                         'Advertiser name'))
         for click in queryset:
             writer.writerow((unicode(click.ad.title).encode("utf-8"),
                              click.ad.url,
@@ -135,7 +130,7 @@ class ClickAdmin(admin.ModelAdmin):
 class ImpressionAdmin(admin.ModelAdmin):
     search_fields = ['ad__title', 'source_ip', 'session_id']
     list_display = ['ad', 'impression_date', 'source_ip', 'session_id']
-    list_filter = ['ad', 'impression_date', 'ad__zone']
+    list_filter = ['ad', 'impression_date']
     date_hierarchy = 'impression_date'
     actions = ['download_impressions']
 
@@ -152,8 +147,7 @@ class ImpressionAdmin(admin.ModelAdmin):
                          'Source IP',
                          'Timestamp',
                          'Advertiser ID',
-                         'Advertiser name',
-                         'Zone'))
+                         'Advertiser name'))
         for impression in queryset:
             writer.writerow((unicode(impression.ad.title).encode("utf-8"),
                              impression.ad.url,

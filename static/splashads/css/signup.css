@@ -1,0 +1,10 @@
+body {
+    color: #333;
+    height: 100%;
+}
+
+.form-control:focus {
+    border-bottom-color: #333;
+    box-shadow: none;
+    border-width: 2px;
+}

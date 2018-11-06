@@ -9,6 +9,8 @@ from django.utils.encoding import python_2_unicode_compatible, force_text
 from django.utils.translation import ugettext_lazy as _
 
 from ads.managers import AdManager
+from ads.utils import get_zones_choices
+from django.conf import settings
 
 
 @python_2_unicode_compatible
@@ -104,8 +106,6 @@ class Ad(models.Model):
     venues = models.ManyToManyField(
         Venue,
         verbose_name=_("Venues"))
-    zone = models.CharField(
-        verbose_name=_('Zone'), max_length=100)
     weight = models.IntegerField(
         verbose_name=_('Weight'),
         help_text=_('Weight of the ad relative to other ads '
@@ -141,10 +141,14 @@ class AdImage(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_('Ad'),
         related_name='images')
+    device = models.CharField(
+        verbose_name=_('Device'), max_length=2, choices=settings.ADS_DEVICES)
     image = models.ImageField(
         upload_to='ad-images',
         verbose_name=_('Image'),
         max_length=255)
+    zone = models.CharField(
+        verbose_name=_('Zone'), max_length=50, null=True, blank=True, choices=get_zones_choices())
 
 
 @python_2_unicode_compatible

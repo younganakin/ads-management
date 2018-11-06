@@ -1,0 +1,28 @@
+{% extends "splashads/base.html" %}
+{% load static %}
+{% load ads_tags %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'splashads/css/index.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block title %}K 1{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div id="index_div" class="col-sm-4">
+        <div class="row justify-content-center">
+            <img class="img-responsive" src="{% static 'splashads/images/logo.jpg' %}" alt="logo">
+        </div>
+        <div class="row justify-content-center">
+            <a href="{{ url }}" class="btn btn-artcaffee">CONTINUE</a>
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+{% endblock %}
