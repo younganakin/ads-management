@@ -2,8 +2,14 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from splashads.generate import TOTPVerification
 
 from splashads.models import Radcheck, Radreply
+
+import requests
+import json
+
+totp_verification = TOTPVerification()
 
 
 def index(request):
@@ -86,11 +92,11 @@ def signup(request):
             sms_url,
             json=sms_params,
             headers=headers)
-        return HttpResponseRedirect(reverse('ads:verify'))
         return HttpResponseRedirect(reverse('splashads:verify'))
     return render(request, 'splashads/signup.html')
 
 
+@csrf_exempt
 def verify(request):
     if request.method == 'POST':
         password = request.POST['password']

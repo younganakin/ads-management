@@ -144,7 +144,7 @@ ADS_ZONES = {
     'header': {
         'name': ('Header'),
         'ad_size': {
-            'xs': '720x150',
+            'xs': '274x150',
             'sm': '800x90',
             'md': '800x90',
             'lg': '800x90'
@@ -153,7 +153,7 @@ ADS_ZONES = {
     'content': {
         'name': ('Content'),
         'ad_size': {
-            'xs': '300x150',
+            'xs': '274x202',
             'sm': '800x90',
             'md': '800x90',
             'lg': '800x90'
@@ -162,7 +162,7 @@ ADS_ZONES = {
     'sidebar': {
         'name': ('Sidebar'),
         'ad_size': {
-            'xs': '720x150',
+            'xs': '274x104',
             'sm': '800x90',
             'md': '800x90',
             'lg': '800x90'

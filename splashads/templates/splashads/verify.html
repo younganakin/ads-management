@@ -1,5 +1,6 @@
 {% extends "splashads/base.html" %}
 {% load static %}
+{% load ads_tags %}
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'splashads/css/verify.css' %}" />
@@ -16,10 +17,10 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <div class="row justify-content-center">
-            <img class="img-responsive" src="{% static 'splashads/images/logo.jpg' %}" alt="logo">
+            <img class="img-responsive" src="{% static 'splashads/images/logo.jpg' %}" alt="logo" style="height: 100px;">
         </div>
-        <div class="row justify-content-center">
-
+        <div class="row justify-content-center" style="margin-bottom: 20px;">
+            {% render_ads_zone 'content' 'K 1' %}
         </div>
         <div class="row justify-content-center">
             <form id="verify_form" action="{% url 'splashads:verify' %}" method="post">
