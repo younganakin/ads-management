@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from splashads.generate import TOTPVerification
 
-from splashads.models import Radcheck, Radreply
+from splashads.models import Radcheck
 
 import requests
 import json
@@ -64,7 +64,7 @@ def signup(request):
         phone_number = request.POST['phone_number']
         client_mac = request.session['client_mac']
         generated_token = totp_verification.generate_token()
-        username = name + phone_number + 'k1-ads'
+        username = phone_number + client_mac + 'k1-ads'
         radcheck = Radcheck(username=username,
                             attribute='Cleartext-Password',
                             op=':=',
@@ -74,13 +74,7 @@ def signup(request):
                             email=email,
                             name=name,
                             organization='k1-ads')
-
-        radreply = Radreply(username=username,
-                            attribute='Session-Timeout',
-                            op='=',
-                            value='60')
         radcheck.save()
-        radreply.save()
         sms_url = 'http://pay.brandfi.co.ke:8301/sms/send'
         welcome_message = 'Online access code is: ' + generated_token
         sms_params = {
