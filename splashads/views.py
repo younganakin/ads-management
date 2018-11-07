@@ -45,10 +45,11 @@ def check_credentials(request):
         radcheck = Radcheck.objects.get(mac_address=client_mac,
                                         organization='k1-ads')
         login_url = request.session['login_url']
-        continue_url = request.session['continue_url']
+        successs_url = 'http://' + request.get_host() + \
+            reverse('splashads:success')
         login_params = {"username": radcheck.username,
                         "password": radcheck.value,
-                        "success_url": continue_url}
+                        "success_url": successs_url}
         r = requests.post(login_url, params=login_params)
         return HttpResponseRedirect(r.url)
     except Radcheck.DoesNotExist:
