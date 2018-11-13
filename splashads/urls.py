@@ -12,5 +12,4 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('verify', views.verify, name='verify'),
     path('success', views.success, name='success'),
-    path('getonline_url', views.getonline_url, name='getonline_url'),
 ]
