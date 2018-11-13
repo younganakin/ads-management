@@ -102,7 +102,7 @@ def verify(request):
     return render(request, 'splashads/verify.html')
 
 
-def login(request):
+def getonline_url(request):
     client_mac = request.session['client_mac']
     login_url = request.session['login_url']
     radcheck = Radcheck.objects.get(mac_address=client_mac,
@@ -116,9 +116,9 @@ def login(request):
 
 
 def success(request):
-    login_url = 'http://' + request.get_host() + \ 
-            reverse('splashads:login') 
+    getonline_url = 'http://' + request.get_host() + \ 
+            reverse('splashads:getonline_url') 
     context = {
-        'login_url': login_url,
+        'getonline_url': getonline_url,
     }
     return render(request, 'splashads/success.html', context)
