@@ -96,8 +96,7 @@ def verify(request):
     if request.method == 'POST':
         password = request.POST['password']
         request.session['password'] = password
-        successs_url = 'http://' + request.get_host() + \ 
-            reverse('splashads:success')
+        successs_url = 'http://' + request.get_host() + reverse('splashads:success')
         return HttpResponseRedirect(success_url)
     return render(request, 'splashads/verify.html')
 
@@ -116,8 +115,7 @@ def getonline_url(request):
 
 
 def success(request):
-    getonline_url = 'http://' + request.get_host() + \ 
-            reverse('splashads:getonline_url') 
+    getonline_url = 'http://' + request.get_host() + reverse('splashads:getonline_url') 
     context = {
         'getonline_url': getonline_url,
     }
