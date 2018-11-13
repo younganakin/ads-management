@@ -95,19 +95,30 @@ def signup(request):
 def verify(request):
     if request.method == 'POST':
         password = request.POST['password']
-        radcheck = Radcheck.objects.get(value=password)
-
-        login_url = request.session['login_url']
-        successs_url = 'http://' + request.get_host() + \
+        request.session['password'] = password
+        successs_url = 'http://' + request.get_host() + \ 
             reverse('splashads:success')
-        # continue_url = request.session['continue_url']
-        login_params = {"username": radcheck.username,
-                        "password": radcheck.value,
-                        "success_url": successs_url}
-        r = requests.post(login_url, params=login_params)
-        return HttpResponseRedirect(r.url)
+        return HttpResponseRedirect(success_url)
     return render(request, 'splashads/verify.html')
 
 
+def login(request):
+    client_mac = request.session['client_mac']
+    login_url = request.session['login_url']
+    radcheck = Radcheck.objects.get(mac_address=client_mac,
+                                        organization='k1-ads')
+    # continue_url = request.session['continue_url']
+    login_params = {"username": radcheck.username,
+                    "password": radcheck.value,
+                    "success_url": 'http://google.com'}
+    r = requests.post(login_url, params=login_params)
+    return HttpResponseRedirect(r.url)
+
+
 def success(request):
-    return render(request, 'splashads/success.html')
+    login_url = 'http://' + request.get_host() + \ 
+            reverse('splashads:login') 
+    context = {
+        'login_url': login_url,
+    }
+    return render(request, 'splashads/success.html', context)
