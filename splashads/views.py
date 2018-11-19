@@ -93,20 +93,26 @@ def signup(request):
 
 @csrf_exempt
 def verify(request):
+    status = ''
     if request.method == 'POST':
         password = request.POST['password']
-        radcheck = Radcheck.objects.get(value=password)
 
-        login_url = request.session['login_url']
-        successs_url = 'http://' + request.get_host() + \
-            reverse('splashads:success')
-        # continue_url = request.session['continue_url']
-        login_params = {"username": radcheck.username,
-                        "password": radcheck.value,
-                        "success_url": successs_url}
-        r = requests.post(login_url, params=login_params)
-        return HttpResponseRedirect(r.url)
-    return render(request, 'splashads/verify.html')
+        try:
+            radcheck = Radcheck.objects.get(value=password)
+            login_url = request.session['login_url']
+            successs_url = 'http://' + request.get_host() + \
+                reverse('splashads:success')
+            login_params = {"username": radcheck.username,
+                            "password": radcheck.value,
+                            "success_url": success_url}
+            r = requests.post(login_url, params=login_params)
+            return HttpResponseRedirect(r.url)
+        except Radcheck.DoesNotExist:
+            status = 'error'
+    context = {
+        'message': status,
+    }
+    return render(request, 'splashads/verify.html', context)
 
 
 def success(request):

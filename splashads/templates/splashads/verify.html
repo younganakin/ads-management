@@ -20,7 +20,16 @@
             <img class="img-responsive" src="{% static 'splashads/images/uptown_logo.png' %}" alt="logo" style="height: 100px; border-radius: 12px;">
         </div>
         <div class="row justify-content-center" style="margin-bottom: 20px;">
-            {% render_static_zone 'syte3D' 'sidebar' %}
+            {% render_ads_zone 'sidebar' 'K 1' %}
+        </div>
+        <div class="row justify-content-center">
+            {% if message == 'error' %}
+            <div class="row justify-content-center">
+                <div class="alert alert-danger">
+                    <strong>You entered an incorrect code</strong>
+                </div>
+            </div>
+            {% endif %}
         </div>
         <div class="row justify-content-center">
             <form id="verify_form" action="{% url 'splashads:verify' %}" method="post">
