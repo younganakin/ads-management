@@ -18,11 +18,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib import admin
 
 
 # Admin Site Config
-admin.sites.AdminSite.site_header = 'ABC Company Ltd'
-admin.sites.AdminSite.site_title = 'Ads Management System'
+admin.sites.AdminSite.site_header = 'Brandfi Kenya'
+admin.sites.AdminSite.site_title = 'Brandfi Ad Manager'
+admin.site.site_url = 'http://adm.brandfi.co.ke/admin'
 
 urlpatterns = [
     path('ads/', include('ads.urls')),
