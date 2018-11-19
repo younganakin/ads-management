@@ -22,7 +22,7 @@ from django.contrib import admin
 
 
 # Admin Site Config
-admin.sites.AdminSite.site_header = 'Brandfi Kenya'
+admin.sites.AdminSite.site_header = 'Brandfi'
 admin.sites.AdminSite.site_title = 'Brandfi Ad Manager'
 admin.site.site_url = 'http://adm.brandfi.co.ke/admin'
 
